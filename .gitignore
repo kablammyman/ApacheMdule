@@ -1,0 +1,9 @@
+x64/
+Release/
+Debug/
+ipch/
+*.sdf
+.vs/
+*.suo
+build_win32/
+build_linux/
