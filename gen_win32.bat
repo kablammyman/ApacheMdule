@@ -4,6 +4,6 @@ if not exist "x64\Release" mkdir x64\Release
 
 cd build_win32
 
-cmake -G "Visual Studio 16 2019" ..
+cmake -G "Visual Studio 16 2019 Win64" ..
 
 cd ..
