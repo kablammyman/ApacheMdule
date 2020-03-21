@@ -44,8 +44,8 @@ LoadModule imap_module modules/mod_imap.so
 
 #include "mod_helloworld.h"
 #include "cppTest.h"
-#include "Parcel.h"
-#include "DatabaseController.h"
+//#include "Parcel.h"
+//#include "DatabaseController.h"
 
 // request handler example
 
@@ -118,34 +118,6 @@ static void DoJsonOutput(request_rec *req)
 	req->content_type = "application/json;charset=UTF-8";
 }
 
-static void ParcelTest(request_rec *req)
-{
-	DatabaseController dbControllerEureka;
-	DatabaseController dbControllerMain;
-	dbControllerEureka.OpenDB("E:\\documents\\land investing\\parcels\\eureka county NV\\EurekaParcels.db");
-	dbControllerMain.OpenDB("E:\\documents\\land investing\\scripts\\LandInvestments.db");
-
-	ParcelTable *parcelTable = new ParcelTable(&dbControllerMain);
-	ParcelTable::Parcel * parcel = parcelTable->GetParcelInfo(2424);
-	char ret[1000];
-	strcpy(ret, "{\n");
-	
-	char args[20];
-	sprintf(args, "\"apn\": \"%s\",\n", parcel->APN);
-	strcat(ret, args);
-
-	char pathInfo[30];
-	sprintf(pathInfo, "\"county\": \"%s\",\n", parcel->county);
-	strcat(ret, pathInfo);
-
-	strcat(ret, "}\n");
-	ap_rputs(ret, req);
-
-
-	req->content_type = "application/json;charset=UTF-8";
-	
-
-}
 EXTERN_C_FUNC
 static int helloworld_handler(request_rec *req)
 {
@@ -166,7 +138,7 @@ static int helloworld_handler(request_rec *req)
 		if(strcmp(req->path_info, "/html")==0)
 			DoHTMLOutput(req);
 		else if (strcmp(req->path_info , "/json")==0)
-			ParcelTest(req);
+			DoJsonOutput(req);
 		else 
 			DoJsonOutput(req);
 	}
